@@ -1,25 +1,36 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <v-header></v-header>
+    <ul class="tab">
+      <router-link tag="li" :to="{path: '/goods'}" class="tab-item">商品</router-link>
+      <router-link tag="li" :to="{path: '/ratings'}" class="tab-item">评价</router-link>
+      <router-link tag="li" :to="{path: '/sell'}" class="tab-item">商家</router-link>
+    </ul>
+    <router-view></router-view>
   </div>
 </template>
-<style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
+<script>
+import Header from '@/views/header/Header'
+export default {
+  name: 'App',
+  components: {
+    'v-header': Header
+  }
+}
+</script>
 
-#nav
-  padding 30px
-  a
-    font-weight bold
-    color #2c3e50
-    &.router-link-exact-active
-      color #42b983
+<style lang="stylus">
+  @import '~@/common/stylus/reset.styl'
+</style>
+
+<style lang="stylus" scoped>
+  .tab
+    display: flex
+    height: 40px
+    line-height: 40px
+    .router-link-active
+      color: #f00
+    .tab-item
+      flex: 1
+      text-align: center
 </style>
