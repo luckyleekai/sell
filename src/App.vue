@@ -11,10 +11,17 @@
 </template>
 <script>
 import Header from '@/views/header/Header'
+import Axios from 'axios'
+
 export default {
   name: 'App',
   components: {
     'v-header': Header
+  },
+  created() {
+    Axios.get('/mock/data.json').then((response) => {
+      console.log(response)
+    })
   }
 }
 </script>
