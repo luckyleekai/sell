@@ -7,10 +7,12 @@
       <router-link tag="li" :to="{path: '/seller'}" class="tab-item">商家</router-link>
     </ul>
     <router-view></router-view>
+    <shop-cart></shop-cart>
   </div>
 </template>
 <script>
   import Header from '@/views/header/Header'
+  import ShopCart from '@/views/shopcart/Shopcart'
   import Axios from 'axios'
 
   export default {
@@ -21,11 +23,12 @@
       }
     },
     components: {
-      'v-header': Header
+      'v-header': Header,
+      ShopCart
     },
     created() {
       Axios.get('/mock/data.json').then((response) => {
-        //console.log(response)
+        // console.log(response)
       })
     },
     mounted() {

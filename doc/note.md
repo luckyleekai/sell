@@ -1,7 +1,6 @@
-## vue笔记
+# vue笔记
 
-### vue生命周期
-
+## vue生命周期
 
 sublime text3 编辑器自带的代码格式化可以在 
 Edit -> Line -> Reindent
@@ -14,3 +13,4 @@ Preference  ->  Key Bindings -user
 但是在使用的过程中发现sublime text3自带的编辑器代码格式化能力还是比较弱
 必须得要选中要格式的代码才行
 
+设备像素比

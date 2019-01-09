@@ -31,9 +31,9 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'Header'
-}
+  export default {
+    name: 'Header'
+  }
 </script>
 <style lang="stylus" scoped>
   @import '~@/common/stylus/mixin.styl'
@@ -98,7 +98,7 @@ export default {
           position: absolute
           right: 0
           bottom: 0
-          border-radius: 24px   
+          border-radius: 24px
     .notice-wrapper
       display: flex
       height: 28px
