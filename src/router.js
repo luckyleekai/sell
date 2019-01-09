@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Goods from '@/views/goods/Goods'
 import Ratings from '@/views/ratings/Ratings'
-import Sell from '@/views/sell/Sell'
+import Seller from '@/views/seller/Seller'
+import Test from '@/views/test/Test'
 
 Vue.use(Router)
 
@@ -19,8 +20,12 @@ export default new Router({
     path: '/ratings',
     component: Ratings
   }, {
-    name: 'sell',
-    path: '/sell',
-    component: Sell
+    name: 'seller',
+    path: '/seller',
+    component: Seller
+  }, {
+    name: 'test',
+    path: '/test',
+    component: Test
   }]
 })
