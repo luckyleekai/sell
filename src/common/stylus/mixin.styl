@@ -23,11 +23,15 @@ border-none()
     border: none
     
 // 2x/3x图处理 $url 图片的url地址，$ext哪张类型的图片
-bg-image($url, $ext)
-  background-image: url($url + '@2x.' + $ext)
-  @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3)
-    background-image: url($url + '@2x.' + $ext)
-  
+// bg-image($url, $ext)
+//   background-image: url($url + '@2x.' + $ext)
+//   @media (-webkit-min-device-pixel-ratio:3),(min-device-pixel-ratio:3)
+//     background-image: url($url + '@2x.' + $ext)
+// 2x/3x图处理 $url图片的url地址，$ext图片的扩展名默认为png格式的图片
+bg-image($url, $ext = 'png')
+  background-image url('./imgs/' + $url + '@2x.' + $ext)
+  @media (-webkit-min-device-pixel-ratio:3), (min-device-pixel-ratio:3)
+    background-image url('./imgs/' + $url + '@3x.' + $ext)
   
     
   

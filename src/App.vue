@@ -1,42 +1,11 @@
 <template>
   <div id="app">
-    <v-header :seller="seller"></v-header>
-    <ul class="tab border-1px-bottom" id="tab">
-      <router-link tag="li" :to="{path: '/goods'}" class="tab-item">商品</router-link>
-      <router-link tag="li" :to="{path: '/ratings'}" class="tab-item">评价</router-link>
-      <router-link tag="li" :to="{path: '/seller'}" class="tab-item">商家</router-link>
-    </ul>
-    <router-view :seller="seller"></router-view>
+    <router-view></router-view>
   </div>
 </template>
-<script>
-import Header from '@/views/header/Header'
-import Axios from 'axios'
 
+<script>
 export default {
-  name: 'App',
-  data() {
-    return {
-      seller: {}
-    }
-  },
-  components: {
-    'v-header': Header
-  },
-  created() {
-    // Axios.get('/mock/data.json').then((response) => {
-    //   // console.log(response)
-    // })
-    Axios.get('/api/data.json').then(response => {
-      const data = response.data
-      this.seller = data.seller
-    })
-  },
-  mounted() {
-    // let oTab = document.getElementById('tab')
-    // let style = document.defaultView.getComputedStyle(oTab, 'after')
-    // console.log(style['display'])
-    // console.log(style['width'])
-  }
+  name: 'app'
 }
 </script>

@@ -1,12 +1,13 @@
-import Home from '@/components/home/Index'
+import Home from '@/components/home/Home'
 
 const routes = [{
-  path: '/',
-  redirect: '/home'
-  // component: Home
-}, {
-  path: '/home',
-  component: Home
-}]
+    path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    component: Home
+  }
+]
 
 export default routes
