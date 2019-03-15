@@ -1,14 +1,26 @@
 // 一像素边框的实现
-border-1px($color)
+border-1px-top($color)
+  position: relative
+  &:before
+    content: ' '
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    border-top: 1px solid $color
+border-1px-bottom($color)
   position: relative
   &:after
+    content: ' '
     position: absolute
     left: 0
     bottom: 0
-    display: block
     width: 100%
-    border-top: 1px solid $color
-    content: ' '
+    border-bottom: 1px solid $color
+
+border-none()
+  &:after
+    border: none
     
 // 2x/3x图处理 $url 图片的url地址，$ext哪张类型的图片
 bg-image($url, $ext)

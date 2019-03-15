@@ -1,18 +1,16 @@
 <template>
   <div id="app">
     <v-header :seller="seller"></v-header>
-    <ul class="tab" id="tab">
+    <ul class="tab border-1px-bottom" id="tab">
       <router-link tag="li" :to="{path: '/goods'}" class="tab-item">商品</router-link>
       <router-link tag="li" :to="{path: '/ratings'}" class="tab-item">评价</router-link>
       <router-link tag="li" :to="{path: '/seller'}" class="tab-item">商家</router-link>
     </ul>
-    <router-view></router-view>
-    <shop-cart></shop-cart>
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 <script>
   import Header from '@/views/header/Header'
-  import ShopCart from '@/views/shopcart/Shopcart'
   import Axios from 'axios'
 
   export default {
@@ -23,12 +21,15 @@
       }
     },
     components: {
-      'v-header': Header,
-      ShopCart
+      'v-header': Header
     },
     created() {
-      Axios.get('/mock/data.json').then((response) => {
-        // console.log(response)
+      // Axios.get('/mock/data.json').then((response) => {
+      //   // console.log(response)
+      // })
+      Axios.get('/api/data.json').then((response) => {
+        const data = response.data
+        this.seller = data.seller
       })
     },
     mounted() {
@@ -46,11 +47,12 @@
 
 <style lang="stylus" scoped>
   @import '~@/common/stylus/mixin.styl'
+
   .tab
     display: flex
     height: 40px
     line-height: 40px
-    border-1px(rgba(7,17,27,0.1))
+    border-1px-bottom(rgba(7, 17, 27, 0.1))
     .router-link-active
       color: #f00
     .tab-item
