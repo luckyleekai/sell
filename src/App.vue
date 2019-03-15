@@ -10,52 +10,33 @@
   </div>
 </template>
 <script>
-  import Header from '@/views/header/Header'
-  import Axios from 'axios'
+import Header from '@/views/header/Header'
+import Axios from 'axios'
 
-  export default {
-    name: 'App',
-    data() {
-      return {
-        seller: {}
-      }
-    },
-    components: {
-      'v-header': Header
-    },
-    created() {
-      // Axios.get('/mock/data.json').then((response) => {
-      //   // console.log(response)
-      // })
-      Axios.get('/api/data.json').then((response) => {
-        const data = response.data
-        this.seller = data.seller
-      })
-    },
-    mounted() {
-      // let oTab = document.getElementById('tab')
-      // let style = document.defaultView.getComputedStyle(oTab, 'after')
-      // console.log(style['display'])
-      // console.log(style['width'])
+export default {
+  name: 'App',
+  data() {
+    return {
+      seller: {}
     }
+  },
+  components: {
+    'v-header': Header
+  },
+  created() {
+    // Axios.get('/mock/data.json').then((response) => {
+    //   // console.log(response)
+    // })
+    Axios.get('/api/data.json').then(response => {
+      const data = response.data
+      this.seller = data.seller
+    })
+  },
+  mounted() {
+    // let oTab = document.getElementById('tab')
+    // let style = document.defaultView.getComputedStyle(oTab, 'after')
+    // console.log(style['display'])
+    // console.log(style['width'])
   }
+}
 </script>
-
-<style lang="stylus">
-  @import '~@/common/stylus/reset.styl'
-</style>
-
-<style lang="stylus" scoped>
-  @import '~@/common/stylus/mixin.styl'
-
-  .tab
-    display: flex
-    height: 40px
-    line-height: 40px
-    border-1px-bottom(rgba(7, 17, 27, 0.1))
-    .router-link-active
-      color: #f00
-    .tab-item
-      flex: 1
-      text-align: center
-</style>
