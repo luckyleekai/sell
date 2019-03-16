@@ -17,6 +17,18 @@
           <span class="h-text">{{seller.supports[0].description}}</span>
         </div>
       </div>
+      <div class="btn">
+        <span class="btn-text">5个</span>
+        <i class="btn-icon iconfont">&#xe64c;</i>
+      </div>
+    </div>
+    <div class="bulletin">
+      <span class="title"></span>
+      <span class="content">{{seller.bulletin}}</span>
+      <span class="icon-arrow iconfont">&#xe64c;</span>
+    </div>
+    <div class="background">
+      <img :src="seller.avatar" alt="">
     </div>
   </div>
 </template>
@@ -39,10 +51,13 @@ export default {
 @import '~@/common/stylus/mixin'
 .h-header
   color #ffffff
-  background-color #000
+  position relative
+  overflow hidden
+  background-color rgba(7, 17, 27, 0.2)
   .wrapper
     padding 24px 12px 18px 24px
     display flex
+    position relative
     .h-img
       display block
       margin-right 16px
@@ -91,4 +106,57 @@ export default {
         font-size 12px
         line-height 12px
         display inline-block
+    .btn
+      position absolute
+      right 12px
+      bottom 18px
+      padding 0 8px
+      height 24px
+      line-height 24px
+      border-radius 14px
+      background-color rgba(0, 0, 0, 0.2)
+      text-align center
+      font-size 0
+      .btn-text
+        font-size 10px
+        margin-right 2px
+      .btn-icon
+        font-size 10px
+  .bulletin
+    height 28px
+    line-height 28px
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    padding 0 28px 0 12px
+    position relative
+    background-color rgba(7, 17, 27, 0.2)
+    .title
+      display inline-block
+      width 22px
+      height 12px
+      bg-image('bulletin')
+      background-size 22px 12px
+      background-repeat no-repeat
+      margin: 0 4px 0 0
+      vertical-align top
+      margin-top 8px
+    .content
+      font-size 12px
+    .icon-arrow
+      position absolute
+      font-size 12px
+      right 12px
+  .background
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+    z-index -1
+    filter blur(10px)
+    img
+     display block
+     width 100%
+     height 100%
 </style>
