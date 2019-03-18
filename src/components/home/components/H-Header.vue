@@ -30,10 +30,12 @@
     <div class="background">
       <img :src="seller.avatar" alt="">
     </div>
-    <div v-show="detailShow" class="detail clearfix">
+    <div v-show="detailShow" class="detail">
       <!-- 应用到了CSS Sticky layout -->
-      <div class="detail-box">
+      <div class="detail-box clearfix">
         <div class="detail-main">
+          <p>{{seller.bulletin}}</p>
+          <p>{{seller.bulletin}}</p>
         </div>
       </div>
       <div class="detail-close">close</div>
@@ -180,9 +182,9 @@ export default {
   .detail
     position fixed
     top 0
-    bottom 0
     left 0
-    right 0
+    width 100%
+    height 100%
     overflow-x hidden
     overflow-y auto
     background-color rgba(7, 17, 27, 0.8)
@@ -190,11 +192,13 @@ export default {
       min-height 100%
       background-color red
     .detail-main
-      margin-top 50px
+      margin-top 64px
       padding-bottom 64px
     .detail-close
       height 64px
       width 64px
       background-color blue
-      margin: -64px auto 0
+      margin -64px auto 0
+      clear both
+      position relative
 </style>
