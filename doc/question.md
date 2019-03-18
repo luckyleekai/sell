@@ -19,3 +19,7 @@ ES6的箭头函数 this 问题
 ES6的Array.from
 
 图片验证码的实现
+
+css sticky 布局
+
+vue-router在什么时候用比较合适？

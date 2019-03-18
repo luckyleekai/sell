@@ -1,27 +1,10 @@
-@media (-webkit-min-device-pixel-ratio:1.5), (min-device-pixel-ratio:1.5)
-  .border-1px-top
-    &::before
-      transform: scaleY(0.7)
-@media (-webkit-min-device-pixel-ratio:2), (min-device-pixel-ratio:2)
-  .border-1px-top
-    &::before
-      transform: scaleY(0.5)
-@media (-webkit-min-device-pixel-ratio:3), (min-device-pixel-ratio:3)
-  .border-1px-top
-    &::before
-      transform: scaleY(0.3)
+.clearfix
+  clear both
+  &::after
+    content ''
+    display table
+    line-height 0
+    visibility hidden
 
-@media (-webkit-min-device-pixel-ratio:1.5), (min-device-pixel-ratio:1.5)
-  .border-1px-bottom
-    &::after
-      transform: scaleY(0.7)
-@media (-webkit-min-device-pixel-ratio:2), (min-device-pixel-ratio:2)
-  .border-1px-bottom
-    &::after
-      transform: scaleY(0.5)
-@media (-webkit-min-device-pixel-ratio:3), (min-device-pixel-ratio:3)
-  .border-1px-bottom
-    &::after
-      transform: scaleY(0.3)
 
     

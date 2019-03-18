@@ -17,18 +17,26 @@
           <span class="h-text">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div class="btn">
+      <div class="btn" @click="handleDetailShow">
         <span class="btn-text">5个</span>
         <i class="btn-icon iconfont">&#xe64c;</i>
       </div>
     </div>
-    <div class="bulletin">
+    <div class="bulletin" @click="handleDetailShow">
       <span class="title"></span>
       <span class="content">{{seller.bulletin}}</span>
       <span class="icon-arrow iconfont">&#xe64c;</span>
     </div>
     <div class="background">
       <img :src="seller.avatar" alt="">
+    </div>
+    <div v-show="detailShow" class="detail clearfix">
+      <!-- 应用到了CSS Sticky layout -->
+      <div class="detail-box">
+        <div class="detail-main">
+        </div>
+      </div>
+      <div class="detail-close">close</div>
     </div>
   </div>
 </template>
@@ -39,6 +47,16 @@ export default {
   props: {
     seller: {
       type: Object
+    }
+  },
+  data() {
+    return {
+      detailShow: true
+    }
+  },
+  methods: {
+    handleDetailShow() {
+      this.detailShow = true
     }
   },
   created() {
@@ -159,4 +177,24 @@ export default {
      display block
      width 100%
      height 100%
+  .detail
+    position fixed
+    top 0
+    bottom 0
+    left 0
+    right 0
+    overflow-x hidden
+    overflow-y auto
+    background-color rgba(7, 17, 27, 0.8)
+    .detail-box
+      min-height 100%
+      background-color red
+    .detail-main
+      margin-top 50px
+      padding-bottom 64px
+    .detail-close
+      height 64px
+      width 64px
+      background-color blue
+      margin: -64px auto 0
 </style>
