@@ -30,20 +30,50 @@
     <div class="background">
       <img :src="seller.avatar" alt="">
     </div>
-    <div v-show="detailShow" class="detail">
-      <!-- 应用到了CSS Sticky layout -->
-      <div class="detail-box clearfix">
-        <div class="detail-main">
-          <p>{{seller.bulletin}}</p>
-          <p>{{seller.bulletin}}</p>
+    <transition name="fade">
+      <div v-show="detailShow" class="detail">
+        <!-- 应用到了CSS Sticky layout -->
+        <div class="detail-box clearfix">
+          <div class="detail-main">
+            <h2 class="name">{{seller.name}}</h2>
+            <div class="star-box">
+              <Star :size="48" :score="seller.score"></Star>
+            </div>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">优惠信息</div>
+              <div class="line"></div>
+            </div>
+            <ul class="supports" v-if="seller.supports">
+              <li class="support-item"
+                  v-for="(supportItem, index) of seller.supports"
+                  :key="index"
+              >
+                <span class="support-icon" :class="classMap[supportItem.type]"></span>
+                <span class="support-text">{{supportItem.description}}</span>
+              </li>
+            </ul>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">商家公告</div>
+              <div class="line"></div>
+            </div>
+            <div class="detail-bulletin">
+              <p class="content">
+                {{seller.bulletin}}
+              </p>
+            </div>
+          </div>
         </div>
+        <div class="detail-close" @click="handleHideDetail">close</div>
       </div>
-      <div class="detail-close">close</div>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import Star from '@/common/components/star/Star'
+
 export default {
   name: 'h-header',
   props: {
@@ -53,16 +83,22 @@ export default {
   },
   data() {
     return {
-      detailShow: true
+      detailShow: false
     }
   },
   methods: {
     handleDetailShow() {
       this.detailShow = true
+    },
+    handleHideDetail() {
+      this.detailShow = false
     }
   },
   created() {
     this.classMap = ['decrese', 'discount', 'special', 'invoice', 'guarantee']
+  },
+  components: {
+    Star
   }
 }
 </script>
@@ -190,10 +226,71 @@ export default {
     background-color rgba(7, 17, 27, 0.8)
     .detail-box
       min-height 100%
-      background-color red
     .detail-main
       margin-top 64px
       padding-bottom 64px
+      .star-box
+        margin-top 18px
+        padding 2px 0
+        text-align center
+      .name
+        line-height 16px
+        font-weight 700
+        text-align center
+        font-size 16px
+      .title
+        width 80%
+        display flex
+        margin 28px auto 24px auto
+        align-items center
+        .line
+          flex 1
+          border-bottom 1px solid rgba(255, 255, 255, 0.2)
+        .text
+          padding 0 12px
+          font-size 14px
+          font-weight 700
+      .supports
+        width 80%
+        margin 0 auto
+        .support-item
+          padding 0 12px
+          margin-bottom 12px
+          white-space nowrap
+          overflow hidden
+          text-overflow ellipsis
+          font-size 0
+          &:last-child
+            margin-bottom 0
+          .support-icon
+            display inline-block
+            width 16px
+            height 16px
+            vertical-align top
+            margin-right 6px
+            background-size 16px 16px
+            background-repeat no-repeat
+            &.decrese
+              bg-image('decrease_2')
+            &.discount
+              bg-image('discount_2')
+            &.guarantee
+              bg-image('guarantee_2')
+            &.invoice
+              bg-image('invoice_2')
+            &.special
+              bg-image('special_2')
+          .support-text
+            font-size 16px
+            line-height 16px
+            display inline-block
+      .detail-bulletin
+        width 80%
+        margin 0 auto
+        .content
+          padding 0 12px
+          line-height 24px
+          font-size 16px
     .detail-close
       height 64px
       width 64px
@@ -201,4 +298,8 @@ export default {
       margin -64px auto 0
       clear both
       position relative
+  .fade-enter, .fade-leave-to
+    opacity 0
+  .fade-enter-active, .fade-leave-active
+    transition all 0.5s
 </style>

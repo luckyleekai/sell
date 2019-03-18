@@ -2,9 +2,9 @@
   <div>
     <H-Header :seller="seller"></H-Header>
     <ul class="tab">
-      <li class="tab-item">商品</li>
-      <li class="tab-item">评论</li>
-      <li class="tab-item">商家</li>
+      <router-link class="tab-item" tag="li" to="/home">商品</router-link>
+      <router-link class="tab-item" tag="li" to="/rating">评论</router-link>
+      <router-link class="tab-item" tag="li" to="/seller">商家</router-link>
     </ul>
     <div class="content">
       content
@@ -45,4 +45,6 @@ export default {
     height 40px
     line-height 40px
     text-align center
+    &.router-link-active
+      color #ff0000
 </style>
