@@ -5,6 +5,7 @@
         <li class="menu-item"
             v-for="(menuItem, index) in goods"
             :key="index"
+            @click="handleMenuItemClick"
         >
           <div class="menu-item-detail">
             <My-Icon v-if="menuItem.type > 0"
@@ -21,7 +22,7 @@
       <ul>
         <li v-for="(item, index) in goods"
             :key="index"
-            class="goods-list">
+            class="goods-list goods-list-hook">
           <h2 class="goods-list-title">{{item.name}}</h2>
           <ul class="goods-item-box">
             <li v-for="(food, index) in item.foods"
@@ -53,15 +54,15 @@
 <script>
 import axios from 'axios'
 import MyIcon from '@/common/components/icon/Icon'
+import BScroll from 'better-scroll'
 
 export default {
   name: 'goods',
   data() {
     return {
-      goods: []
+      goods: [],
+      listHeight: [] // 右側商品列表每個區間的高度
     }
-  },
-  computed: {
   },
   created() {
     axios.get('/mock/data.json').then((res) => {
@@ -70,6 +71,10 @@ export default {
       console.log('请求出错')
       console.log(err)
     })
+  },
+  mounted() {
+    this.initFoodList()
+    this.calcHeight()
   },
   components: {
     MyIcon
@@ -80,6 +85,19 @@ export default {
       this.menuList = new BScroll(menuBox, {})
       let goodsBox = this.$refs['goodsBox']
       this.foodList = new BScroll(goodsBox, {})
+    },
+    handleMenuItemClick() {
+      console.log('menu item click!')
+    },
+    calcHeight() {
+      // 計算右側商品每個區間的高度
+      let goodsList = this.$refs['goodsBox'].getElementsByClassName('goods-list-hook')
+      let tmpHeight = 0
+      for (let i = 0; i < goodsList.length; i++) {
+        console.log(goodsList[i].offsetHeight)
+        tmpHeight += goodsList[i].offsetHeight
+        this.listHeight.push(tmpHeight)
+      }
     }
   }
 }
@@ -145,10 +163,12 @@ export default {
       color rgb(7, 17, 27)
     .goods-desc,.goods-extra
       font-size 10px
-      line-height 10px
       color rgb(147, 153, 159)
     .goods-desc
       margin-bottom 8px
+      line-height 12px
+    .goods-extra
+      line-height 10px
     .goods-sell-count
       margin-right 12px
     .goods-price
