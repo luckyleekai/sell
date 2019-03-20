@@ -13,7 +13,8 @@
           {{seller.description}} / {{seller.deliveryTime}}分钟送达
         </p>
         <div class="h-activition" v-if="seller.supports">
-          <span class="icon" :class="[classMap[seller.supports[0].type]]"></span>
+          <My-Icon :iconSize="12" :iconType="seller.supports[2].type"></My-Icon>
+          <!-- <span class="icon" :class="[classMap[seller.supports[0].type]]"></span> -->
           <span class="h-text">{{seller.supports[0].description}}</span>
         </div>
       </div>
@@ -49,7 +50,7 @@
                   v-for="(supportItem, index) of seller.supports"
                   :key="index"
               >
-                <span class="support-icon" :class="classMap[supportItem.type]"></span>
+                <My-Icon :iconSize="16" :iconType="supportItem.type"></My-Icon>
                 <span class="support-text">{{supportItem.description}}</span>
               </li>
             </ul>
@@ -73,6 +74,7 @@
 
 <script>
 import Star from '@/common/components/star/Star'
+import MyIcon from '@/common/components/icon/Icon'
 
 export default {
   name: 'h-header',
@@ -98,7 +100,8 @@ export default {
     this.classMap = ['decrese', 'discount', 'special', 'invoice', 'guarantee']
   },
   components: {
-    Star
+    Star,
+    MyIcon
   }
 }
 </script>
@@ -140,24 +143,6 @@ export default {
         margin-bottom 10px
       .h-activition
         font-size 0
-      .icon
-        display inline-block
-        width 12px
-        height 12px
-        margin-right 4px
-        background-size 12px 12px
-        background-repeat no-repeat
-        vertical-align top
-        &.decrese
-          bg-image('decrease_1')
-        &.discount
-          bg-image('discount_1')
-        &.guarantee
-          bg-image('guarantee_1')
-        &.invoice
-          bg-image('invoice_1')
-        &.special
-          bg-image('special_1')
       .h-text
         font-size 12px
         line-height 12px
@@ -219,6 +204,7 @@ export default {
     position fixed
     top 0
     left 0
+    z-index 100
     width 100%
     height 100%
     overflow-x hidden
@@ -262,24 +248,6 @@ export default {
           font-size 0
           &:last-child
             margin-bottom 0
-          .support-icon
-            display inline-block
-            width 16px
-            height 16px
-            vertical-align top
-            margin-right 6px
-            background-size 16px 16px
-            background-repeat no-repeat
-            &.decrese
-              bg-image('decrease_2')
-            &.discount
-              bg-image('discount_2')
-            &.guarantee
-              bg-image('guarantee_2')
-            &.invoice
-              bg-image('invoice_2')
-            &.special
-              bg-image('special_2')
           .support-text
             font-size 16px
             line-height 16px
