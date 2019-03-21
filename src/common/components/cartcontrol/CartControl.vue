@@ -19,19 +19,8 @@ export default {
   },
   methods: {
     handleBtnClick(type, evt) {
-      if (type === '+') {
-        if (this.food.count === undefined) {
-          // 这里必须使用$set方法，原因在于vue只能对数据对象中已存在的属性进行监听和响应
-          // 动态添加的属性无法做出直接做出响应，需调用set方法
-          this.$set(this.food, 'count', 1)
-        } else {
-          this.food.count++
-        }
-      } else {
-        if (this.food.count > 0) {
-          this.food.count--
-        }
-      }
+      // 这里感觉直接对父组件传递过来的数据进行直接的修改不是太好，但是这个数据是父组件
+      // 列表循环传递给子组件的数据
     }
   }
 }

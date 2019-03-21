@@ -45,7 +45,7 @@
                   <span v-show="food.oldPrice" class="goods-price-old">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-btn">
-                  <CartControl :food="food"></CartControl>
+                  <CartControl :food="food" @selectFood="handleSelectFood"></CartControl>
                 </div>
               </div>
             </li>
