@@ -27,3 +27,9 @@ Preference  ->  Key Bindings -user
 better-scroll插件默认会将元素的点击事件给禁用掉了，所以要开启点击事件则必须在创建实例的时候，传递一个参数参数里面的属性写上了 click: true
 
 ## 移动端的适配
+
+
+border-radius的理解，比如实现一个椭圆
+
+better-scroll 滚动存在一个性能的问题，在PC chrome模拟器上面发现会很卡
+而且绑定的滚动事件执行频率非常高

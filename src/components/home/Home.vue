@@ -7,11 +7,13 @@
       <router-link class="tab-item" tag="li" to="/home/seller">商家</router-link>
     </ul>
     <router-view></router-view>
+    <Shop-Cart></Shop-Cart>
   </div>
 </template>
 
 <script>
 import HHeader from './components/H-Header'
+import ShopCart from './components/H-ShopCart'
 import axios from 'axios'
 
 export default {
@@ -22,7 +24,8 @@ export default {
     }
   },
   components: {
-    HHeader
+    HHeader,
+    ShopCart
   },
   created() {
     axios.get('/mock/data.json').then((res) => {
@@ -44,5 +47,5 @@ export default {
     line-height 40px
     text-align center
     &.router-link-active
-      color #ff0000
+      color #f01414
 </style>

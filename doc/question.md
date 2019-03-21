@@ -33,3 +33,7 @@ css3 backdrop-filter: blur(10px)
 css3的flex布局
 
 如何解决css中内联元素间隙问题
+
+需要深入理解一下vue中几个生命周期方法的区别？
+
+在使用ref获取动态生成的子元素时，长度总是为0

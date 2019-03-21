@@ -5,7 +5,8 @@
         <li class="menu-item"
             v-for="(menuItem, index) in goods"
             :key="index"
-            @click="handleMenuItemClick"
+            :class="{'current': index === currIndex}"
+            @click="handleMenuItemClick(index, $event)"
         >
           <div class="menu-item-detail">
             <My-Icon v-if="menuItem.type > 0"
@@ -29,7 +30,8 @@
                 :key="index"
                 class="goods-item">
               <div class="goods-image-box">
-                <img :src="food.icon" :alt="food.name" class="goods-image">
+                <!-- <img :src="food.icon" :alt="food.name" class="goods-image"> -->
+                <img :alt="food.name" class="goods-image">
               </div>
               <div class="goods-content-box">
                 <h3 class="goods-content-title">{{food.name}}</h3>
@@ -61,20 +63,38 @@ export default {
   data() {
     return {
       goods: [],
-      listHeight: [] // 右側商品列表每個區間的高度
+      listHeight: [], // 右側商品列表每個區間的高度
+      scrollY: 0
     }
   },
   created() {
     axios.get('/mock/data.json').then((res) => {
       this.goods = res.data.goods
+      // 这里调用$nextTick方法的原因在于，如果calcHeight里面有用到DOM，如果不等到
+      // 整个组件的DOM渲染完毕，会出现获取不到DOM元素的情况
+      this.$nextTick(() => {
+        this.initFoodList()
+        setTimeout(() => {
+          this.calcHeight()
+        }, 20)
+      })
     }, (err) => {
       console.log('请求出错')
       console.log(err)
     })
   },
-  mounted() {
-    this.initFoodList()
-    this.calcHeight()
+  computed: {
+    currIndex() {
+      // 3763
+      let currIndex = 0
+      for (let i = 0; i < this.listHeight.length; i++) {
+        let height = this.listHeight[i] - 10
+        if (this.scrollY <= height) {
+          return i
+        }
+      }
+      return currIndex
+    }
   },
   components: {
     MyIcon
@@ -82,20 +102,36 @@ export default {
   methods: {
     initFoodList() {
       let menuBox = this.$refs['menuBox']
-      this.menuList = new BScroll(menuBox, {})
+      this.menuList = new BScroll(menuBox, {
+        click: true
+      })
       let goodsBox = this.$refs['goodsBox']
-      this.foodList = new BScroll(goodsBox, {})
+      this.foodList = new BScroll(goodsBox, {
+        probeType: 3
+      })
+      this.foodList.on('scroll', (pos) => {
+        console.log('scrollY: ', Math.round(pos.y))
+        this.scrollY = Math.abs(Math.round(pos.y))
+      })
     },
-    handleMenuItemClick() {
-      console.log('menu item click!')
+    handleMenuItemClick(index, evt) {
+      if (!evt._constructed) { // 阻止在PC端设备上，点击事件的回调函数多次执行
+        return false
+      }
+      let goodsList = this.$refs['goodsBox']
+      let nodeList = goodsList.getElementsByClassName('goods-list-hook')
+      let elem = nodeList[index]
+      this.foodList.scrollToElement(elem, 300)
     },
     calcHeight() {
-      // 計算右側商品每個區間的高度
-      let goodsList = this.$refs['goodsBox'].getElementsByClassName('goods-list-hook')
+      // 该方法的主要的功能是，计算出右侧的商品列表，每个分类下面的商品，最大的Y轴区间
+      // 当滚动右侧的商品列表容器时，会需要用到当前Y轴是在哪个区间，从而可以让左侧的菜单
+      // 实现联动效果
+      let goodsList = this.$refs['goodsBox']
+      let nodeList = goodsList.getElementsByClassName('goods-list-hook')
       let tmpHeight = 0
-      for (let i = 0; i < goodsList.length; i++) {
-        console.log(goodsList[i].offsetHeight)
-        tmpHeight += goodsList[i].offsetHeight
+      for (let i = 0; i < nodeList.length; i++) {
+        tmpHeight += nodeList[i].offsetHeight
         this.listHeight.push(tmpHeight)
       }
     }
@@ -120,6 +156,12 @@ export default {
       line-height 14px
       display table
       padding 0 12px
+      &.current
+        background-color #fff
+        .menu-item-detail
+          border-color transparent
+        .menu-text
+          color #f01414
     .menu-item-detail
       display table-cell
       vertical-align middle
