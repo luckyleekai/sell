@@ -44,6 +44,9 @@
                   <span class="goods-price-now">￥{{food.price}}</span>
                   <span v-show="food.oldPrice" class="goods-price-old">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-btn">
+                  <CartControl :food="food"></CartControl>
+                </div>
               </div>
             </li>
           </ul>
@@ -57,6 +60,7 @@
 import axios from 'axios'
 import MyIcon from '@/common/components/icon/Icon'
 import BScroll from 'better-scroll'
+import CartControl from '@/common/components/cartcontrol/CartControl'
 
 export default {
   name: 'goods',
@@ -97,7 +101,8 @@ export default {
     }
   },
   components: {
-    MyIcon
+    MyIcon,
+    CartControl
   },
   methods: {
     initFoodList() {
@@ -107,7 +112,8 @@ export default {
       })
       let goodsBox = this.$refs['goodsBox']
       this.foodList = new BScroll(goodsBox, {
-        probeType: 3
+        probeType: 3,
+        click: true
       })
       this.foodList.on('scroll', (pos) => {
         console.log('scrollY: ', Math.round(pos.y))
@@ -197,6 +203,7 @@ export default {
       margin-right 10px
     .goods-content-box
       flex 1
+      position relative
     .goods-content-title
       margin 2px 0 8px
       font-size 14px
@@ -225,4 +232,8 @@ export default {
       text-decoration line-through
       font-size 10px
       color rgb(147, 153, 159)
+    .cartcontrol-btn
+      position absolute
+      right 0
+      bottom 20px
 </style>
