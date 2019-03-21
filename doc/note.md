@@ -70,3 +70,19 @@ https://www.cnblogs.com/smfx1314/p/8426115.html
  git config --global user.name  "kevinlee"
  git config --global user.email "luckyleekai@sina.com"
 ```
+
+## git每次提交更新到远程仓库都需要输入用户名和密码解决办法
+
+进入项目.git目录下使用下面的命令
+
+`git config --global credential.helper store`
+
+然后cat config 文件发现会多出一些内容
+
+```git
+[remote "origin"]
+  url = https://github.com/luckyleekai/sell.git
+  fetch = +refs/heads/*:refs/remotes/origin/*
+```
+
+然后再回到项目目录下执行git pull，根据提示输入用户名和密码，输入正确后，以后再执行git pull 就不用输入用户名和密码了
